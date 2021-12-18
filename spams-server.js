@@ -18,6 +18,9 @@ app.get("/", (req, res) => {
 
 var clients = {};
 
+let motionFlag = 0;
+let serverServoAngle = 1;
+
 io.on("connection", (socket) => {
   console.log("new client connected");
   clients[socket.id] = socket;
@@ -30,9 +33,26 @@ io.on("connection", (socket) => {
   });
   socket.on("BBBW1_Motion", () => {
     console.log("bbbw1 picked up motion! om nom nom");
+    motionFlag = 1;
+    io.emit("BBBW1_Motion", motionFlag);
   });
   socket.on("BBBW1_NoMotion", () => {
     console.log("bbbw1 picked up no motion! om nom nom");
+    motionFlag = 0;
+    io.emit("BBBW1_NoMotion", motionFlag);
+  });
+  socket.on("BBBW1_ServoAngle", (servoDuty) => {
+    console.log("bbbw1 sends his regards!");
+    io.emit("BBBW1_ServoAngle", servoDuty.data);
+  });
+  socket.on("BBBW1_buzzerOn", (buzzerFreq) => {
+    console.log("a client has hit the ring ring!!");
+    io.emit("BBBW1_buzzerOn", buzzerFreq);
+  }); 
+  socket.on("BBBW1_ServoAngle", (servoAngle) => {
+    console.log("servo angle being set to:"+servoAngle);
+    io.emit("BBBW1_ServoAngle", servoAngle);
+    serverServoAngle = servoAngle;
   });
 });
 
