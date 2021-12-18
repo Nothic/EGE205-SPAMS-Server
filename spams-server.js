@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
     motionFlag = 0;
     io.emit("BBBW1_NoMotion", motionFlag);
   });
-  socket.on("BBBW1_ServoAngle", (servoDuty) => {
+  socket.on("BBBW1_ServerServoAngle", (servoDuty) => {
     console.log("bbbw1 sends his regards!");
     io.emit("BBBW1_ServoAngle", servoDuty.data);
   });
@@ -50,8 +50,8 @@ io.on("connection", (socket) => {
     io.emit("BBBW1_buzzerOn", buzzerFreq);
   });
   socket.on("BBBW1_ServoAngle", (servoAngle) => {
-    console.log("servo angle being set to:" + 30);
-    io.emit("BBBW1_ServoAngle", 30);
+    console.log("servo angle being set to:" + servoAngle);
+    io.emit("BBBW1_UpdateServoAngle", servoAngle);
   });
 });
 
