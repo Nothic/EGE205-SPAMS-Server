@@ -33,7 +33,7 @@
         motionContainer.textContent = motionFlag;
         console.log("motionFlag:"+motionFlag);
       });
-      socket.on("BBBW1_ServoAngle", function (servoDuty) {
+      socket.on("BBBW1_ServerServoAngle", function (servoDuty) {
         var angleContainer = document.getElementById("angleContainer");
         angleContainer.textContent = servoDuty;
         console.log("Servo angle:"+servoDuty);

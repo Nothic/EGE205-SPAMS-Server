@@ -19,16 +19,15 @@ app.get("/", (req, res) => {
 var clients = {};
 
 let motionFlag = 0;
-let serverServoAngle = 1;
 
 io.on("connection", (socket) => {
-  console.log("new client connected");
+  //console.log("new client connected");
   clients[socket.id] = socket;
   socket.on("ping servo", (servoState) => {
     console.log("Servostate: " + servoState);
   });
   socket.on("disconnect", () => {
-    console.log("a client disconnected");
+   // console.log("a client disconnected");
     delete clients[socket.id];
   });
   socket.on("BBBW1_Motion", () => {
@@ -41,10 +40,6 @@ io.on("connection", (socket) => {
     motionFlag = 0;
     io.emit("BBBW1_NoMotion", motionFlag);
   });
-  socket.on("BBBW1_ServerServoAngle", (servoDuty) => {
-    console.log("bbbw1 sends his regards!");
-    io.emit("BBBW1_ServoAngle", servoDuty.data);
-  });
   socket.on("BBBW1_buzzerOn", (buzzerFreq) => {
     console.log("a client has hit the ring ring!!");
     io.emit("BBBW1_buzzerOn", buzzerFreq);
@@ -52,8 +47,12 @@ io.on("connection", (socket) => {
   socket.on("BBBW1_ServoAngle", (servoAngle) => {
     console.log("servo angle being set to:" + servoAngle);
     io.emit("BBBW1_UpdateServoAngle", servoAngle);
+    io.emit("BBBW1_ServerServoAngle", servoAngle);
   });
+  
 });
+
+
 
 server.listen(3001, () => {
   console.log("listening on *:3001");
