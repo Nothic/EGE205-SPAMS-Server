@@ -18,27 +18,26 @@ app.get("/", (req, res) => {
 
 var clients = {};
 
-let motionFlag = 0;
+
 
 io.on("connection", (socket) => {
-  //console.log("new client connected");
+  console.log("new client connected");
   clients[socket.id] = socket;
   socket.on("ping servo", (servoState) => {
     console.log("Servostate: " + servoState);
   });
   socket.on("disconnect", () => {
-   // console.log("a client disconnected");
+   console.log("a client disconnected");
     delete clients[socket.id];
   });
-  socket.on("BBBW1_Motion", () => {
-    console.log("bbbw1 picked up motion! om nom nom");
-    motionFlag = 1;
-    io.emit("BBBW1_Motion", motionFlag);
+  socket.on("BBBW1_Motion", (motionFlag) => {
+    console.log("bbbw1 motion state:"+ motionFlag.data);
+    io.emit("Panel_Update", motionFlag.data);
   });
-  socket.on("BBBW1_NoMotion", () => {
-    console.log("bbbw1 picked up no motion! om nom nom");
-    motionFlag = 0;
-    io.emit("BBBW1_NoMotion", motionFlag);
+  socket.on("BBBW1_NoMotion", (motionFlag) => {
+    console.log("bbbw1 motion state:"+ motionFlag.data);
+    io.emit("Panel_Update", motionFlag.data);
+
   });
   socket.on("BBBW1_buzzerOn", (buzzerFreq) => {
     console.log("a client has hit the ring ring!!");
