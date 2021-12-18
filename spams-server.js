@@ -48,11 +48,10 @@ io.on("connection", (socket) => {
   socket.on("BBBW1_buzzerOn", (buzzerFreq) => {
     console.log("a client has hit the ring ring!!");
     io.emit("BBBW1_buzzerOn", buzzerFreq);
-  }); 
+  });
   socket.on("BBBW1_ServoAngle", (servoAngle) => {
-    console.log("servo angle being set to:"+servoAngle);
-    io.emit("BBBW1_ServoAngle", servoAngle);
-    serverServoAngle = servoAngle;
+    console.log("servo angle being set to:" + 30);
+    io.emit("BBBW1_ServoAngle", 30);
   });
 });
 
