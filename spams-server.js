@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const { join } = require("path");
+const { disconnect } = require("process");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 
@@ -31,17 +32,16 @@ io.on("connection", (socket) => {
     delete clients[socket.id];
   });
   socket.on("BBBW1_Motion", (motionFlag) => {
-    console.log("bbbw1 motion state:"+ motionFlag.data);
-    io.emit("Panel_Update", motionFlag.data);
+    console.log("bbbw1 motion state:"+ motionFlag);
+    io.emit("Panel_Buzz", motionFlag);
   });
   socket.on("BBBW1_NoMotion", (motionFlag) => {
-    console.log("bbbw1 motion state:"+ motionFlag.data);
-    io.emit("Panel_Update", motionFlag.data);
-
+    console.log("bbbw1 motion state:"+ motionFlag);
+    io.emit("Panel_NoBuzz", motionFlag);
   });
   socket.on("BBBW1_buzzerOn", (buzzerFreq) => {
     console.log("a client has hit the ring ring!!");
-    io.emit("BBBW1_buzzerOn", buzzerFreq);
+    io.emit("sendBBBW1_Buzz", buzzerFreq);
   });
   socket.on("BBBW1_ServoAngle", (servoAngle) => {
     console.log("servo angle being set to:" + servoAngle);
