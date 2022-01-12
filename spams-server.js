@@ -48,6 +48,10 @@ io.on("connection", (socket) => {
     io.emit("BBBW1_UpdateServoAngle", servoAngle);
     io.emit("BBBW1_ServerServoAngle", servoAngle);
   });
+
+  socket.on("PD2S", (data) => {
+    console.log("PD2S have " + data + " motion.");
+  });
   
 });
 
