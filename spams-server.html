@@ -1,5 +1,65 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+=======
+  <head>
+    <title>SPAMS Server</title>
+    <style>
+      #motionContainer {
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <div>--YAN-- wild edit conflict here
+    </div>
+    <div>
+      <div>motionFlag :</div>
+      <div id="motionContainer"></div>
+    </div>
+    <div>
+      <div>ServoAngle :</div>
+      <div id="angleContainer"></div>
+    </div>
+    <div>
+      <input id="buzzerOn" type="button" value="buzzer on" onclick="buzzerOn()"></input>
+    </div>
+    <div>--YAN--</div>
+
+    <div>--DANIEL--</div>
+    <div>
+      <div>Precipitation(Keylock2) :</div>
+      <div></div>
+    </div>
+    <div>
+      <div>Sunlight(Pot) :</div>
+      <div></div>
+    </div>
+    <div>
+      <div>Windspeed(Analog Key) :</div>
+      <div></div>
+    </div>
+    <div>--DANIEL--</div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      socket.on("BBBW1_Motion", function (motionFlag) {
+        var motionContainer = document.getElementById("motionContainer");
+        motionContainer.textContent = motionFlag;
+        console.log("motionFlag:"+motionFlag);
+      });
+      socket.on("BBBW1_NoMotion", function (motionFlag) {
+        var motionContainer = document.getElementById("motionContainer");
+        motionContainer.textContent = motionFlag;
+        console.log("motionFlag:"+motionFlag);
+      });
+      socket.on("BBBW1_ServerServoAngle", function (servoDuty) {
+        var angleContainer = document.getElementById("angleContainer");
+        angleContainer.textContent = servoDuty;
+        console.log("Servo angle:"+servoDuty);
+      });
+>>>>>>> 31bfef8edf42138dfa10dfca52e254ca2091d177
 
 <head>
   <title>SPAMS Server</title>
