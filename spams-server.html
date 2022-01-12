@@ -59,6 +59,7 @@
         angleContainer.textContent = servoDuty;
         console.log("Servo angle:"+servoDuty);
       });
+
 >>>>>>> 31bfef8edf42138dfa10dfca52e254ca2091d177
 
 <head>
@@ -90,6 +91,14 @@
   <div>--DANIEL--</div>
 
 
+  <div>
+    <div>--Lawrance--</div>
+    <div>PD2S Detection:</div>
+    <div id="PD2SContainer"></div>
+    <div>--Lawrance--</div>
+  </div>
+
+
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -115,6 +124,15 @@
       socket.emit("BBBW1_buzzerOn", 90);
 
     };
+
+
+    socket.on('Web_PD2S', function(RxData)
+    {
+    //$('PD2S').text(RxData.data);
+    var PD2SContainer = document.getElementById("PD2SContainer");
+      PD2SContainer.textContent = pd2sFlag;
+      console.log("pd2sFlag:" + pd2sFlag);
+    });
 
   </script>
 
