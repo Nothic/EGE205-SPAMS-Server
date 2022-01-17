@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-=======
   <head>
     <title>SPAMS Server</title>
     <style>
@@ -41,6 +39,13 @@
     </div>
     <div>--DANIEL--</div>
 
+    <div>
+      <div>--Lawrance--</div>
+      <div>PD2S Detection:</div>
+      <div id="PD2SContainer"></div>
+      <div>--Lawrance--</div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
@@ -60,83 +65,12 @@
         console.log("Servo angle:"+servoDuty);
       });
 
->>>>>>> 31bfef8edf42138dfa10dfca52e254ca2091d177
-
-<head>
-  <title>SPAMS Server</title>
-  <style>
-    #motionContainer {
-      background-color: aqua;
-    }
-  </style>
-</head>
-
-<body>
-  <div>--YAN--
-  </div>
-  <div>
-    <div>motionFlag :</div>
-    <div id="motionContainer"></div>
-  </div>
-  <div>
-    <div>ServoAngle :</div>
-    <div id="angleContainer"></div>
-  </div>
-  <div>
-    <input id="buzzerOn" type="button" value="buzzer on" onclick="buzzerOn()"></input>
-  </div>
-  <div>--YAN--</div>
-  <div>--DANIEL--</div>
-  <div>TEST OUTPUT HERE</div>
-  <div>--DANIEL--</div>
-
-
-  <div>
-    <div>--Lawrance--</div>
-    <div>PD2S Detection:</div>
-    <div id="PD2SContainer"></div>
-    <div>--Lawrance--</div>
-  </div>
-
-
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-    socket.on("BBBW1_Motion", function (motionFlag) {
-      var motionContainer = document.getElementById("motionContainer");
-      motionContainer.textContent = motionFlag;
-      console.log("motionFlag:" + motionFlag);
-    });
-    socket.on("BBBW1_NoMotion", function (motionFlag) {
-      var motionContainer = document.getElementById("motionContainer");
-      motionContainer.textContent = motionFlag;
-      console.log("motionFlag:" + motionFlag);
-    });
-    socket.on("BBBW1_ServerServoAngle", function (servoDuty) {
-      var angleContainer = document.getElementById("angleContainer");
-      angleContainer.textContent = servoDuty;
-      console.log("Servo angle:" + servoDuty);
-    });
-   
-
-    function buzzerOn() {
-      socket.emit("BBBW1_buzzerOn", 90);
-
-    };
-
-
-    socket.on('Web_PD2S', function(RxData)
-    {
-    //$('PD2S').text(RxData.data);
-    var PD2SContainer = document.getElementById("PD2SContainer");
-      PD2SContainer.textContent = pd2sFlag;
-      console.log("pd2sFlag:" + pd2sFlag);
+      socket.on('PD2S', function(RxData)
+      {
+      //$('PD2S').text(RxData.data);
+        var PD2SContainer = document.getElementById("PD2SContainer");
+        PD2SContainer.textContent = pd2sFlag;
+        console.log("pd2sFlag:" + pd2sFlag);
     });
 
-  </script>
-
-
-</body>
-
-</html>
+<html/>
